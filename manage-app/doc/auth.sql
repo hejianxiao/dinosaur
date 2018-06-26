@@ -1,0 +1,47 @@
+CREATE TABLE `user` (
+	`id` VARCHAR(32) NOT NULL COMMENT '用户id',
+	`name` VARCHAR(64) NOT NULL COMMENT '真实姓名',
+	`user_name` VARCHAR(64) NOT NULL COMMENT '登录名',
+	`password` VARCHAR(64) NOT NULL COMMENT '密码',
+	`salt`	VARCHAR(64) COMMENT '加密密码的盐',
+	`status` TINYINT(3) NOT NULL COMMENT '用户状态',
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+	PRIMARY KEY(`id`)
+) COMMENT '用户表';
+
+CREATE TABLE `user_role`(
+	`id` VARCHAR(32) NOT NULL COMMENT '用户角色id',
+	`user_id` VARCHAR(32) NOT NULL COMMENT '用户id',
+	`role_id` VARCHAR(32) NOT NULL COMMENT '角色id',
+	PRIMARY KEY(`id`)
+) COMMENT '用户角色表';
+
+CREATE TABLE `role`(
+	`id` VARCHAR(32) NOT NULL COMMENT '角色id',
+	`role_name` VARCHAR(64) NOT NULL COMMENT '角色名称',
+	`sort_rank` int(5) NOT NULL COMMENT '排序策略',
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+	PRIMARY KEY(`id`)
+) COMMENT '角色表';
+
+CREATE TABLE `role_permission`(
+	`id` VARCHAR(32) NOT NULL COMMENT '角色权限id',
+	`role_id` VARCHAR(32) NOT NULL COMMENT '角色id',
+	`permission_id` VARCHAR(32) NOT NULL COMMENT '权限id',
+	PRIMARY KEY(`id`)
+) COMMENT '角色权限表';
+
+CREATE TABLE `permission`(
+	`id` VARCHAR(32) NOT NULL COMMENT '权限id',
+	`parent_id` VARCHAR(32) NOT NULL COMMENT '父权限id',
+	`permission_name` VARCHAR(64) NOT NULL COMMENT '权限名称',
+	`resource_type` TINYINT(5) NOT NULL COMMENT '资源类型',
+	`url` VARCHAR(128) NOT NULL COMMENT '资源路径',
+	`permiss` VARCHAR(128) NOT NULL COMMENT '权限字符串',
+	`sort_rank` int(5) NOT NULL COMMENT '排序策略',
+	`create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+	PRIMARY KEY(`id`)
+) COMMENT '权限表';
